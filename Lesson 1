@@ -1,0 +1,53 @@
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class Calculator {
+    
+    public double calculateDiscount(double purchaseAmount, double discountPercentage) {
+        if (purchaseAmount < 0 || discountPercentage < 0 || discountPercentage > 100) {
+            throw new ArithmeticException("Недопустимые аргументы");
+        }
+        double discountAmount = purchaseAmount * discountPercentage / 100.0;
+        return purchaseAmount - discountAmount;
+    }
+}
+
+public class CalculatorTest {
+
+    @Test
+    public void testCalculateDiscount() {
+        Calculator calculator = new Calculator();
+
+     
+        double result = calculator.calculateDiscount(100.0, 10.0);
+        Assertions.assertThat(result).isEqualTo(90.0);
+
+    
+        result = calculator.calculateDiscount(100.0, 0.0);
+        Assertions.assertThat(result).isEqualTo(100.0);
+
+    
+        result = calculator.calculateDiscount(100.0, 100.0);
+        Assertions.assertThat(result).isEqualTo(0.0);
+    }
+
+    @Test
+    public void testInvalidArguments() {
+        Calculator calculator = new Calculator();
+
+ 
+        Assertions.assertThatThrownBy(() -> calculator.calculateDiscount(-100.0, 10.0))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Недопустимые аргументы");
+
+   
+        Assertions.assertThatThrownBy(() -> calculator.calculateDiscount(100.0, -10.0))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Недопустимые аргументы");
+
+  
+        Assertions.assertThatThrownBy(() -> calculator.calculateDiscount(100.0, 110.0))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Недопустимые аргументы");
+    }
+}
