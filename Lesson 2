@@ -1,0 +1,61 @@
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class VehicleTest {
+
+    private Car car;
+    private Motorcycle motorcycle;
+
+    @BeforeEach
+    public void setUp() {
+        car = new Car();
+        motorcycle = new Motorcycle();
+    }
+
+    @Test
+    public void testCarIsInstanceOfVehicle() {
+        assertTrue(car instanceof Vehicle);
+    }
+
+    @Test
+    public void testCarHasFourWheels() {
+        assertEquals(4, car.getNumWheels());
+    }
+
+    @Test
+    public void testMotorcycleHasTwoWheels() {
+        assertEquals(2, motorcycle.getNumWheels());
+    }
+
+    @ParameterizedTest
+    @MethodSource("getTestDriveSpeedData")
+    public void testTestDriveSetsSpeedToExpectedValue(Vehicle vehicle, int expectedSpeed) {
+        vehicle.testDrive();
+        assertEquals(expectedSpeed, vehicle.getSpeed());
+    }
+
+    @ParameterizedTest
+    @MethodSource("getParkSpeedData")
+    public void testParkSetsSpeedToZero(Vehicle vehicle, int initialSpeed) {
+        vehicle.testDrive();
+        vehicle.park();
+        assertEquals(0, vehicle.getSpeed());
+    }
+
+    static Stream<Arguments> getTestDriveSpeedData() {
+        return Stream.of(
+            Arguments.of(new Car(), 60),
+            Arguments.of(new Motorcycle(), 75)
+        );
+    }
+
+    static Stream<Arguments> getParkSpeedData() {
+        return Stream.of(
+            Arguments.of(new Car(), 60),
+            Arguments.of(new Motorcycle(), 75)
+        );
+    }
+}
