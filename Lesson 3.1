@@ -1,0 +1,39 @@
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+public class EvenOddNumberTest {
+
+    @Test
+    public void testEvenNumber() {
+        assertTrue(new EvenOddNumber().evenOddNumber(4));
+        assertTrue(new EvenOddNumber().evenOddNumber(0));
+        assertTrue(new EvenOddNumber().evenOddNumber(-6));
+    }
+
+    @Test
+    public void testOddNumber() {
+        assertFalse(new EvenOddNumber().evenOddNumber(7));
+        assertFalse(new EvenOddNumber().evenOddNumber(-5));
+    }
+
+    @Test
+    public void testZero() {
+        assertTrue(new EvenOddNumber().evenOddNumber(0));
+    }
+
+    @Test
+    public void testNegativeEvenNumber() {
+        assertTrue(new EvenOddNumber().evenOddNumber(-8));
+    }
+
+    @Test
+    public void testNegativeOddNumber() {
+        assertFalse(new EvenOddNumber().evenOddNumber(-3));
+    }
+
+    @Test
+    public void testFloatNumber() {
+        assertTrue(new EvenOddNumber().evenOddNumber(3.14));
+    }
+}
