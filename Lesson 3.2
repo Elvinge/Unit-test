@@ -1,0 +1,25 @@
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+public class IntervalCheckerTest {
+
+    @Test
+    public void testNumberInInterval() {
+        IntervalChecker intervalChecker = new IntervalChecker();
+
+        // Проверка чисел, которые должны попасть в интервал (25;100)
+        assertTrue(intervalChecker.numberInInterval(50));
+        assertTrue(intervalChecker.numberInInterval(75));
+
+        // Проверка граничных значений
+        assertTrue(intervalChecker.numberInInterval(26));
+        assertTrue(intervalChecker.numberInInterval(99));
+
+        // Проверка чисел, которые не должны попасть в интервал (25;100)
+        assertFalse(intervalChecker.numberInInterval(25));
+        assertFalse(intervalChecker.numberInInterval(100));
+        assertFalse(intervalChecker.numberInInterval(0));
+        assertFalse(intervalChecker.numberInInterval(150));
+    }
+}
